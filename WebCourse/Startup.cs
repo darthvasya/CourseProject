@@ -81,13 +81,8 @@ namespace WebCourse
                 ClientSecret = configuration["GClientSecret"]
             });
 
-            app.UseMvc(routes => {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{page?}");
-            });
+            app.UseMvcWithDefaultRoute();
 
-            MyIdentityDbContext.CreateAdminAcc(app.ApplicationServices, configuration).Wait();
             SeedData.AddValues(app);
         }
     }

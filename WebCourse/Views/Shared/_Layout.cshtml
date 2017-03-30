@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="~/Images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/Images/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- FontAwesome -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
+    @if (IsSectionDefined("Scripts")) {
+        RenderSection("Scripts");
+    }
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-route-page="1">Банк Инноваций</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="@(ViewBag.Title == "Главная" ? "active" : "")"><a asp-action="Index" asp-controller="Home" asp-route-page="1">Главная</a></li>
+                    <li class="@(ViewBag.Title == "Инновационные продукты" ? "active" : "")"><a asp-action="List" asp-controller="InnovativeProduct" asp-route-page="1">Инновационные продукты</a></li>
+                    <li class="@(ViewBag.Title == "Предприятия" ? "active" : "")"><a asp-action="List" asp-controller="Company" asp-route-page="1">Предприятия</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.IsInRole("Admin")) {
+                        <li><a asp-action="CreateNews" asp-controller="Admin"><span class="fa fa-key"> Администрирование</span></a></li>
+                    }
+                    @if (Context.User.Identity.IsAuthenticated) {
+                        <li><a asp-action="MyProfile" asp-controller="User"><span class="fa fa-home"> Мой профиль</span></a></li>
+                        <li><a asp-action="LogOut" asp-controller="Account"><span class="fa fa-sign-out"></span> Выход</a></li>
+                    } else {
+                        <li><a asp-action="Registration" asp-controller="Account"><span class="fa fa-user-plus"></span> Регистрация</a></li>
+                        <li><a asp-action="Login" asp-controller="Account"><span class="fa fa-sign-in"></span> Вход</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @if (TempData["Message"] != null) {
+                    <div class="alert alert-success">@TempData["Message"]</div>
+                }
+                @if (TempData["Danger"] != null) {
+                    <div class="alert alert-danger">@TempData["Danger"]</div>
+                }
+            </div>
+
+            <div class="col-md-8" id="News">
+
+                @RenderBody()
+
+            </div>
+
+            <div class="col-md-4">
+
+                <!-- Статистика -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>Статистика</h4>
+					</div>
+					<ul class="list-group">
+                        <li class="list-group-item">Зарегистрировано пользователей: 1000</li>
+						<li class="list-group-item">Зарегистрировано предприятий: 1000</li>
+						<li class="list-group-item">Зарегистрировано продуктов: 1000</li>
+						<li class="list-group-item">Опубликовано новостей: 1000</li>
+					</ul>
+				</div>
+
+				<!-- Последние зарегистрированые пользователи -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>Последние зарегистрированые пользователи</h4>
+					</div>
+					<ul class="list-group">
+						<li class="list-group-item"><a href="#">Джигурда</a></li>
+						<li class="list-group-item"><a href="#">Джеки Чан</a></li>
+						<li class="list-group-item"><a href="#">Киану Ривз</a></li>
+						<li class="list-group-item"><a href="#">Рассел Кроу</a></li>
+						<li class="list-group-item"><a href="#">Александ Курицын</a></li>
+					</ul>
+				</div>
+
+				<!-- Последние зарегистрированые инновационные продукты -->
+                <div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>Последние инновационные продукты</h4>
+					</div>
+					<ul class="list-group">
+						<li class="list-group-item"><a href="#">йцуйцуйцу</a></li>
+						<li class="list-group-item"><a href="#">фвфывфывф</a></li>
+						<li class="list-group-item"><a href="#">ячсячсячсяс</a></li>
+						<li class="list-group-item"><a href="#">вапвапвапвап</a></li>
+						<li class="list-group-item"><a href="#">егенгенгенг</a></li>
+					</ul>
+				</div>
+
+				<!-- Последние зарегистрированые предприятия -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>Последние зарегистрированые предприятия</h4>
+					</div>
+					<ul class="list-group">
+						<li class="list-group-item"><a href="#">фывфвфывфывфыв</a></li>
+						<li class="list-group-item"><a href="#">йуйцуйцуйцуйцуйцу</a></li>
+						<li class="list-group-item"><a href="#">ячсячсячсячсячс</a></li>
+						<li class="list-group-item"><a href="#">длортапрлапрдар</a></li>
+					</ul>
+				</div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <hr />
+            <p class="text-center">Copyright &copy; Alexei Suvorov 2017. All rights reserved.</p>
+        </div>
+    </footer>
+
+    
+    <!-- Bootstrap js -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
