@@ -22,7 +22,7 @@ function getNews(page){
             </div>
             ${singleNews.preview}
             <p class="text-right">
-                <a href="#">Подробнее...</a>
+                <a href="#" onclick="getSingleNews(event, ${singleNews.newsID}, ${response.data.currentPage})">Подробнее...</a>
             </p>
             <hr>
             `;
@@ -39,6 +39,34 @@ function getNews(page){
             `;
         }
 
+        $('#News').html(output);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+}
+
+function getSingleNews(e, id, page){
+    e.preventDefault();
+    axios.get('/api/news/SingleNews/' + id)
+    .then(function (response) {
+        console.log(response.data.title);
+        let date = new Date(response.data.publicationDateTime);
+        let output = `
+            <h2><a href="#" onclick="getSingleNews(event, ${id}, ${page})">${response.data.title}</a></h2>
+
+            <div class="container-fluid">
+                <span class="fa fa-calendar pull-left"> ${date.toLocaleDateString()}</span>
+                &nbsp;&nbsp;<span class="fa fa-clock-o pull-left"> ${date.toLocaleTimeString()}</span>
+            </div>
+            <hr>
+            ${response.data.content}
+            <hr>
+            <ul class="pager">
+                <li class="previous"><a href="#" onclick='getNews(${page}, event)'>&larr; Назад</a></li>
+            </ul>	
+            `;
+            console.log(output);
         $('#News').html(output);
     })
     .catch(function (error) {

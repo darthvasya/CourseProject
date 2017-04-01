@@ -1,6 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WebCourse.Models.Repositories;
+using WebCourse.Models;
 
 namespace WebCourse.Controllers.Api
 {
@@ -27,6 +28,11 @@ namespace WebCourse.Controllers.Api
                     TotalItems = _newsRepository.News.Count(),
                     ItemsPerPage = _newsCount
                 };
+        }
+
+        [HttpGet("SingleNews/{id}")]
+        public News GetSingleNews(int id){
+            return _newsRepository.News.Where(n => n.NewsID == id).SingleOrDefault();
         }
     }
 }
