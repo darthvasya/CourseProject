@@ -26,11 +26,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-route-page="1">Банк Инноваций</a>
+                <a class="navbar-brand" asp-action="Index" asp-controller="Home"><img src="~/Images/brand1.png" style="height: 70px; width:75px; margin-top: -23.5px; margin-right: 10px;"></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="@(ViewBag.Title == "Главная" ? "active" : "")"><a asp-action="Index" asp-controller="Home" asp-route-page="1">Главная</a></li>
+                    <li class="@(ViewBag.Title == "Главная" ? "active" : "")"><a asp-action="Index" asp-controller="Home">Главная</a></li>
                     <li class="@(ViewBag.Title == "Инновационные продукты" ? "active" : "")"><a asp-action="List" asp-controller="InnovativeProduct" asp-route-page="1">Инновационные продукты</a></li>
                     <li class="@(ViewBag.Title == "Предприятия" ? "active" : "")"><a asp-action="List" asp-controller="Company" asp-route-page="1">Предприятия</a></li>
                     <li><a href="#">Контакты</a></li>
@@ -74,39 +74,18 @@
 					<div class="panel-heading">
 						<h4>Статистика</h4>
 					</div>
-					<ul class="list-group">
-                        <li class="list-group-item">Зарегистрировано пользователей: 1000</li>
-						<li class="list-group-item">Зарегистрировано предприятий: 1000</li>
-						<li class="list-group-item">Зарегистрировано продуктов: 1000</li>
-						<li class="list-group-item">Опубликовано новостей: 1000</li>
+					<ul class="list-group" id="stats">
+
 					</ul>
 				</div>
-
-				<!-- Последние зарегистрированые пользователи -->
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4>Последние зарегистрированые пользователи</h4>
-					</div>
-					<ul class="list-group">
-						<li class="list-group-item"><a href="#">Джигурда</a></li>
-						<li class="list-group-item"><a href="#">Джеки Чан</a></li>
-						<li class="list-group-item"><a href="#">Киану Ривз</a></li>
-						<li class="list-group-item"><a href="#">Рассел Кроу</a></li>
-						<li class="list-group-item"><a href="#">Александ Курицын</a></li>
-					</ul>
-				</div>
-
+                
 				<!-- Последние зарегистрированые инновационные продукты -->
-                <div class="panel panel-default">
+                <div class="panel panel-default" >
 					<div class="panel-heading">
 						<h4>Последние инновационные продукты</h4>
 					</div>
-					<ul class="list-group">
-						<li class="list-group-item"><a href="#">йцуйцуйцу</a></li>
-						<li class="list-group-item"><a href="#">фвфывфывф</a></li>
-						<li class="list-group-item"><a href="#">ячсячсячсяс</a></li>
-						<li class="list-group-item"><a href="#">вапвапвапвап</a></li>
-						<li class="list-group-item"><a href="#">егенгенгенг</a></li>
+					<ul class="list-group" id="products">
+						
 					</ul>
 				</div>
 
@@ -115,11 +94,8 @@
 					<div class="panel-heading">
 						<h4>Последние зарегистрированые предприятия</h4>
 					</div>
-					<ul class="list-group">
-						<li class="list-group-item"><a href="#">фывфвфывфывфыв</a></li>
-						<li class="list-group-item"><a href="#">йуйцуйцуйцуйцуйцу</a></li>
-						<li class="list-group-item"><a href="#">ячсячсячсячсячс</a></li>
-						<li class="list-group-item"><a href="#">длортапрлапрдар</a></li>
+					<ul class="list-group" id="companies">
+
 					</ul>
 				</div>
 
