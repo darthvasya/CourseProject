@@ -14,7 +14,7 @@ function getNews(page){
         $.each(news, (index, singleNews) =>{
             let date = new Date(singleNews.publicationDateTime);
             output += `
-            <h2><a href="#">${singleNews.title}</a></h2>
+            <h2><a href="#" onclick="getSingleNews(event, ${singleNews.newsID}, ${response.data.currentPage})">${singleNews.title}</a></h2>
 
             <div class="container-fluid">
                 <span class="fa fa-calendar pull-left"> ${date.toLocaleDateString()}</span>
@@ -50,7 +50,6 @@ function getSingleNews(e, id, page){
     e.preventDefault();
     axios.get('/api/news/SingleNews/' + id)
     .then(function (response) {
-        console.log(response.data.title);
         let date = new Date(response.data.publicationDateTime);
         let output = `
             <h2><a href="#" onclick="getSingleNews(event, ${id}, ${page})">${response.data.title}</a></h2>
@@ -66,7 +65,6 @@ function getSingleNews(e, id, page){
                 <li class="previous"><a href="#" onclick='getNews(${page}, event)'>&larr; Назад</a></li>
             </ul>	
             `;
-            console.log(output);
         $('#News').html(output);
     })
     .catch(function (error) {

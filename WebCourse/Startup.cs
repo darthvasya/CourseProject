@@ -81,7 +81,17 @@ namespace WebCourse
                 ClientSecret = configuration["GClientSecret"]
             });
 
-            app.UseMvcWithDefaultRoute();
+
+            app.UseMvc(routes =>{
+                routes.MapRoute(
+                    name: "",
+                    template: "News/Edit/{id}",
+                    defaults: new {controller = "News", action="Edit"}
+                );
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}");
+            });
 
             SeedData.AddValues(app);
         }
