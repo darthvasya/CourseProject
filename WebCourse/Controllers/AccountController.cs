@@ -98,5 +98,51 @@ namespace WebCourse.Controllers {
         public IActionResult AccessDenied() {
             return View();
         }
+
+        // логин через вк\фэйсбук\гугл
+        [AllowAnonymous]
+        public IActionResult ExternalLogin(string returnUrl, string authType) {
+            if (Request.Cookies["Identity.External"] != null) {
+                Response.Cookies.Delete("Identity.External");
+            }
+            string redirectUrl = Url.Action("ExternalResponse", "Account", new { returnUrl = returnUrl });
+
+            AuthenticationProperties properties = _signInManager.ConfigureExternalAuthenticationProperties(authType, redirectUrl);
+            return new ChallengeResult(authType, properties);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> ExternalResponse(string returnUrl = "/") {
+            if (Request.Cookies["Identity.External"] != null) {
+                Response.Cookies.Delete("Identity.External");
+            }
+            ExternalLoginInfo info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null) {
+                return RedirectToAction(nameof(Login));
+            }
+
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
+
+            if (result.Succeeded) {
+                return Redirect(returnUrl);
+            } else {
+                User user = new Models.User {
+                    Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
+                    UserName = info.Principal.FindFirst(ClaimTypes.Email).Value,
+                    Name = info.Principal.FindFirst(ClaimTypes.Name).Value,
+                    EmailConfirmed = true
+                };
+
+                IdentityResult identityResult = await _userManager.CreateAsync(user);
+                if (identityResult.Succeeded) {
+                    identityResult = await _userManager.AddLoginAsync(user, info);
+                    if (identityResult.Succeeded) {
+                        await _signInManager.SignInAsync(user, false);
+                        return Redirect(returnUrl);
+                    }
+                }
+                return RedirectToAction(nameof(Login));
+            }
+        }
     }
 }
