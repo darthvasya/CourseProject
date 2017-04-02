@@ -74,6 +74,27 @@ namespace WebCourse.Controllers {
             return View(model);
         }
 
+        public ViewResult Login(){
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginModel model){
+            if (ModelState.IsValid) {
+                User user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user != null) {
+                    await _signInManager.SignOutAsync();
+                    if ((await _signInManager.PasswordSignInAsync(user, model.Password, false, false)).Succeeded) {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+            ModelState.AddModelError("", "Почта или пароль были введены неверно");
+            return View(model);
+        }
+
         public IActionResult AccessDenied() {
             return View();
         }
