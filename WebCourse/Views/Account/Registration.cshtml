@@ -1,0 +1,34 @@
+@model RegistrationModel
+
+@section Scripts{
+    <script asp-src-include="~/js/JqueryValidation/*.min.js"></script>
+}
+
+<h1>Регистрация</h1>
+
+<form asp-action="Registration" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <div><span asp-validation-for="Name" class="text-danger"></span></div>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <div><span asp-validation-for="Email" class="text-danger"></span></div>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Pass1"></label>
+        <div><span asp-validation-for="Pass1" class="text-danger"></span></div>
+        <input asp-for="Pass1" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Pass2"></label>
+        <div><span asp-validation-for="Pass2" class="text-danger"></span></div>
+        <input asp-for="Pass2" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary">Регистрация</button>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-sm btn-default">Отмена</a>
+</form>
+
