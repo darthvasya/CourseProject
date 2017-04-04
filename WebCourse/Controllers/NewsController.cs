@@ -14,6 +14,7 @@ namespace WebCourse.Controllers
         }
 
         public IActionResult Create() {
+            ViewBag.Title = "Создание новой новости";
             return View("Edit", new News());
         }
 

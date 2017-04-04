@@ -96,7 +96,8 @@ namespace WebCourse.Controllers {
         }
 
         public IActionResult AccessDenied() {
-            return View();
+            TempData["Danger"] = "В доступе отказано";
+            return RedirectToAction("Index", "Home");
         }
 
         // логин через вк\фэйсбук\гугл

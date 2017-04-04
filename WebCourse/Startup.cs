@@ -17,7 +17,7 @@ namespace WebCourse
         public Startup(IHostingEnvironment env) {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json");
 
             configuration = builder.Build();
         }
@@ -94,6 +94,7 @@ namespace WebCourse
             });
 
             SeedData.AddValues(app);
+            SeedData.CreateAdminAcc(app.ApplicationServices, configuration).Wait();
         }
     }
 }
