@@ -25,25 +25,30 @@ namespace WebCourse.Models.Repositories
             return product;
         }
 
-        public void SaveProduct(InnovativeProduct prod) {
+        public InnovativeProduct SaveProduct(InnovativeProduct prod) {
+            InnovativeProduct returnProd = null;
             if(prod.InnovativeProductID == 0) {
                 context.InnovativeProducts.Add(prod);
             } else {
-                InnovativeProduct dbProduct = context.InnovativeProducts.Where(p => p.InnovativeProductID == prod.InnovativeProductID).SingleOrDefault();
-                if(dbProduct != null) {
-                    dbProduct.Continuity = prod.Continuity;
-                    dbProduct.DevelopmentStage = prod.DevelopmentStage;
-                    dbProduct.MarketNoveltyDegree = prod.MarketNoveltyDegree;
-                    dbProduct.MarketShare = prod.MarketShare;
-                    dbProduct.NoveltyDegree = prod.NoveltyDegree;
-                    dbProduct.Prevalence = prod.Prevalence;
-                    dbProduct.ProductionCyclePlace = prod.ProductionCyclePlace;
-                    dbProduct.productName = prod.productName;
-                    dbProduct.Description = prod.Description;
-                    dbProduct.CreatorID = dbProduct.CreatorID ?? prod.CreatorID;
+                 returnProd = context.InnovativeProducts.Where(p => p.InnovativeProductID == prod.InnovativeProductID).SingleOrDefault();
+                if(returnProd != null) {
+                    returnProd.Continuity = prod.Continuity;
+                    returnProd.DevelopmentStage = prod.DevelopmentStage;
+                    returnProd.MarketNoveltyDegree = prod.MarketNoveltyDegree;
+                    returnProd.MarketShare = prod.MarketShare;
+                    returnProd.NoveltyDegree = prod.NoveltyDegree;
+                    returnProd.Prevalence = prod.Prevalence;
+                    returnProd.ProductionCyclePlace = prod.ProductionCyclePlace;
+                    returnProd.productName = prod.productName;
+                    returnProd.Description = prod.Description;
+                    returnProd.CreatorID = returnProd.CreatorID ?? prod.CreatorID;
                 }
             }
             context.SaveChanges();
+            if(returnProd == null){
+                returnProd = context.InnovativeProducts.OrderByDescending(p => p.InnovativeProductID).First();
+            }
+            return returnProd;
         }
     }
 }

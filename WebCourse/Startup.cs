@@ -95,8 +95,8 @@ namespace WebCourse
                 );
                 routes.MapRoute(
                     name:"",
-                    template: "Product/{id}",
-                    defaults: new {controller = "Product", action = "Product"}
+                    template: "Product/View/{id}",
+                    defaults: new {controller = "Product", action="Product"}
                 );
                 routes.MapRoute(
                     name: "default",

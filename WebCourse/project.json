@@ -75,7 +75,7 @@
       "wwwroot",
       "web.config",
       "Views",
-      "appsettings.json"
+      "appsettings.Production.json"
     ]
   },
 

@@ -57,7 +57,7 @@ namespace WebCourse.Controllers
         [HttpPost]
         public IActionResult Edit(InnovativeProduct product){
             if(ModelState.IsValid){
-                _productsRepository.SaveProduct(product);
+               product = _productsRepository.SaveProduct(product);
             } else {
                 return View(product);
             }
