@@ -1,0 +1,87 @@
+@model InnovativeProduct
+
+@section Scripts {
+<script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+            theme: 'modern',
+            plugins: [
+              'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+              'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+              'save table contextmenu directionality emoticons template paste textcolor'
+            ],
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons'
+        });
+    </script>
+
+    <script asp-src-include="~/js/JqueryValidation/*.min.js"></script>
+}
+
+<h1>Инновационный продукт</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="CreatorID"/>
+    <input type="hidden" asp-for="InnovativeProductID" />
+    <div class="form-group">
+        <label asp-for="productName"></label>
+        <div><span asp-validation-for="productName" class="text-danger"></span></div>
+        <input asp-for="productName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DevelopmentStage"></label>
+        <div><span asp-validation-for="DevelopmentStage" class="text-danger"></span></div>
+        <select asp-for="DevelopmentStage" class="form-control" asp-items="@new SelectList(Enum.GetNames(typeof(DevelopmentStage)))">
+            <option disabled selected value="">Выберите стадию разработки</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Continuity"></label>
+        <div><span asp-validation-for="Continuity" class="text-danger"></span></div>
+        <select asp-for="Continuity" class="form-control" asp-items="@new SelectList(Enum.GetNames(typeof(Continuity)))">
+            <option disabled selected value="">Выберите преемственность</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="MarketNoveltyDegree"></label>
+        <div><span asp-validation-for="MarketNoveltyDegree" class="text-danger"></span></div>
+        <select asp-for="MarketNoveltyDegree" class="form-control" asp-items="@new SelectList(Enum.GetNames(typeof(MarketNoveltyDegree)))">
+            <option disabled selected value="">Выберите степень новизны для рынка</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="MarketShare"></label>
+        <div><span asp-validation-for="MarketShare" class="text-danger"></span></div>
+        <select asp-for="MarketShare" class="form-control" asp-items="@new SelectList(Enum.GetNames(typeof(MarketShare)))">
+            <option disabled selected value="">Выберите охват доли рынка</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="NoveltyDegree"></label>
+        <div><span asp-validation-for="NoveltyDegree" class="text-danger"></span></div>
+        <select asp-for="NoveltyDegree" class="form-control" asp-items="@new SelectList(Enum.GetNames(typeof(NoveltyDegree)))">
+            <option disabled selected value="">Выберите степень новизны для рынка</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Prevalence"></label>
+        <div><span asp-validation-for="Prevalence" class="text-danger"></span></div>
+        <select asp-for="Prevalence" class="form-control" asp-items="@new SelectList(Enum.GetNames(typeof(Prevalence)))">
+            <option disabled selected value="">Выберите степень новизны для рынка</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductionCyclePlace"></label>
+        <div><span asp-validation-for="ProductionCyclePlace" class="text-danger"></span></div>
+        <select asp-for="ProductionCyclePlace" class="form-control" asp-items="@new SelectList(Enum.GetNames(typeof(ProductionCyclePlace)))">
+            <option disabled selected value="">Выберите место в производственном цикле</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <div><span asp-validation-for="Description" class="text-danger"></span></div>
+        <textarea id="mytextarea" asp-for="Description" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
+    <a asp-action="index" asp-controller="home" class="btn btn-sm btn-default">Отмена</a>
+</form>

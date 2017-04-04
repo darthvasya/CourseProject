@@ -89,6 +89,16 @@ namespace WebCourse
                     defaults: new {controller = "News", action="Edit"}
                 );
                 routes.MapRoute(
+                    name:"",
+                    template: "Product/Edit/{id}",
+                    defaults: new {controller = "Product", action="Edit"}
+                );
+                routes.MapRoute(
+                    name:"",
+                    template: "Product/{id}",
+                    defaults: new {controller = "Product", action = "Product"}
+                );
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}");
             });

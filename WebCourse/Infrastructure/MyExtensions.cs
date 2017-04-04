@@ -5,9 +5,15 @@ using MimeKit;
 using MailKit.Security;
 using System.Threading.Tasks;
 using System.Net;
+using WebCourse.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebCourse.Infrastructure {
     public static class MyExtensions {
+
+        public static string RightDate(this DateTime dt) =>
+            $"{dt.Day}.{dt.Month}.{dt.Year}";
+
         public static string PathAndQuery(this HttpRequest request) =>
             request.QueryString.HasValue
                 ? $"{request.Path}{request.QueryString}"
@@ -34,6 +40,11 @@ namespace WebCourse.Infrastructure {
                 }
 
             }
+        }
+
+        public static async Task<string> GetCurrentUserIdAsync(this Microsoft.AspNetCore.Http.HttpContext ctx, UserManager<User> userManager) {
+            User user = await userManager.GetUserAsync(ctx.User);
+            return user?.Id;
         }
     }
 }

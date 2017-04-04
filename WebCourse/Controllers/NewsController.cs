@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using WebCourse.Models.Repositories;
 using WebCourse.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebCourse.Controllers
 {
+    [Authorize(Roles= "Admin, Moderator")]
     public class NewsController : Controller {
 
         private INewsRepository _newsRepository;
@@ -13,6 +15,7 @@ namespace WebCourse.Controllers
             _newsRepository = repo;
         }
 
+        
         public IActionResult Create() {
             ViewBag.Title = "Создание новой новости";
             return View("Edit", new News());

@@ -28,7 +28,7 @@ function fillLastProducts(products){
     let output = '';
     $.each(products, (index, product) =>{
         output += `
-            <li class="list-group-item"><a href="#">${product.name}</a></li>
+            <li class="list-group-item"><a href="#">${product.productName}</a></li>
         `;
     });
 

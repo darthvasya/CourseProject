@@ -1,0 +1,80 @@
+@model ProductViewModel
+
+<h1>Инновационный продукт: @Model.Product.productName (Автор:  <a asp-action="Index" asp-controller="User" asp-route-userId="@Model.User.Id">@Model.User.Name</a>)</h1>
+<hr />
+<h2>Основная информация о продукте:</h2>
+<table class="table table-bordered table-condensed table-striped">
+    <tr>
+        <th><label asp-for="Product.DevelopmentStage"></label></th>
+        <td>@Model.Product.DevelopmentStage</td>
+    </tr>
+    <tr>
+        <th><label asp-for="Product.ProductionCyclePlace"></label></th>
+        <td>@Model.Product.ProductionCyclePlace</td>
+    </tr>
+    <tr>
+        <th><label asp-for="Product.Continuity"></label></th>
+        <td>@Model.Product.Continuity</td>
+    </tr>
+    <tr>
+        <th><label asp-for="Product.NoveltyDegree"></label></th>
+        <td>@Model.Product.NoveltyDegree</td>
+    </tr>
+    <tr>
+        <th><label asp-for="Product.MarketNoveltyDegree"></label></th>
+        <td>@Model.Product.MarketNoveltyDegree.ToString().Replace('_', ' ')</td>
+    </tr>
+    <tr>
+        <th><label asp-for="Product.Prevalence"></label></th>
+        <td>@Model.Product.Prevalence</td>
+    </tr>
+    <tr>
+        <th><label asp-for="Product.Description"></label></th>
+        <td>@Html.Raw(Model.Product.Description)</td>
+    </tr>
+    <tr>
+        <td colspan="2" class="text-right">
+            <a class="btn btn-primary" asp-action="Edit" asp-controller="InnovativeProduct" asp-route-id="@Model.Product.InnovativeProductID">Изменить</a>
+        </td>
+    </tr>
+    @if (Model.Product.Certificates != null && Model.Product.Certificates.Any()) {
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <th colspan="2" class="text-center">Сертификаты продукта:</th>
+        </tr>
+        foreach (Certificate c in Model.Product.Certificates) {
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <th>Номер сертификата:</th>
+                <td>@c.CertificateNumber</td>
+            </tr>
+                <tr>
+                    <th>Дата выдачи:</th>
+                    <td>@c.CertificatingDate.RightDate()</td>
+                </tr>
+                <tr>
+                    <th>Кем выдан:</th>
+                    <td>@c.WhoGave</td>
+                </tr>
+                <tr>
+                    <th>Описание:</th>
+                    <td>@Html.Raw(@c.Description)</td>
+                </tr>
+                @if (Model.CanEdit) {
+                    <tr>
+                        <td class="text-right" colspan="2">
+                            <form asp-action="Delete" asp-controller="Certificate" asp-route-id="@c.CertificateID" method="post">
+                                <a asp-action="Edit" asp-controller="Certificate" asp-route-id="@c.CertificateID" class="btn btn-primary">Изменить</a>
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+        }
+    }
+</table>
+
