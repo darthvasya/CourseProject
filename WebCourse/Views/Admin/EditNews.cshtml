@@ -1,0 +1,66 @@
+@model News
+
+@{
+    Layout = "_AdminPanelLayout";
+}
+
+@section Scripts {
+<script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#preview',
+            theme: 'modern',
+            plugins: [
+              'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+              'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+              'save table contextmenu directionality emoticons template paste textcolor'
+            ],
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons'
+        });
+        tinymce.init({
+            selector: '#content',
+            theme: 'modern',
+            plugins: [
+              'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+              'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+              'save table contextmenu directionality emoticons template paste textcolor'
+            ],
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons'
+        });
+    </script>
+    <script asp-src-include="~/js/JqueryValidation/*.min.js"></script>
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading main-color-bg">
+    <h3 class="panel-title">Изменение новости</h3>
+    </div>
+    <div class="panel-body">
+    <form asp-action="EditNews" method="POST">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="NewsID" />
+        <input type="hidden" asp-for="PublicationDateTime" />
+        <div class="form-group">
+            <label asp-for="Title">Название новости</label>
+            <div><span asp-validation-for="Title" class="text-danger"></span></div>
+            <input asp-for="Title" type="text" class="form-control" placeholder="Название новости">
+        </div>
+        <div class="form-group">
+            <label asp-for="Preview"></label>
+            <div><span asp-validation-for="Preview" class="text-danger"></span></div>
+            <textarea asp-for="Preview" id="preview" placeholder="Превью новости"></textarea>
+        </div>
+        <div class="form-group">
+            <label asp-for="Content"></label>
+            <div><span asp-validation-for="Content" class="text-danger"></span></div>
+            <textarea asp-for="Content" id="content" placeholder="Содержимое новости"></textarea>
+        </div>
+        <div class="checkbox">
+            <label asp-for="Published">
+                <input asp-for="Published" type="checkbox" checked> Опубликовать
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">Сохранить</button>
+    </form>
+    </div>
+</div>

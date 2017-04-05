@@ -31,7 +31,48 @@ namespace WebCourse.Controllers
 
         public IActionResult News(){
             ViewBag.Title = "Административная панель | Новости";
+            ViewBag.Cog = "Новости";
+            ViewBag.Manage = "Управление";
             return View();
         }
+
+        public IActionResult CreateNews() {
+            ViewBag.Title = "Создание новой новости";
+            ViewBag.Cog = "Новости";
+            ViewBag.Manage = "Создание";
+            return View("EditNews", new News());
+        }
+
+        public IActionResult EditNews(int id){
+            News news = _newsRepository.News.Where(n => n.NewsID == id).SingleOrDefault();
+            ViewBag.Title = $"Редактирование новости: {news.Title}";
+            ViewBag.Cog = "Новости";
+            ViewBag.Manage = $"Изменение новости: {news.Title}";
+            return View(news);
+        }
+
+        [HttpPost]
+        public IActionResult EditNews(News news) {
+            if (ModelState.IsValid) {
+                _newsRepository.SaveNews(news);
+            } else {
+                return View(news);
+            }
+            return RedirectToAction("News", "Admin");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteNews(int id){
+            News deletedNews = _newsRepository.DeleteNews(id);
+            if(deletedNews != null){
+                TempData["Message"] = $"Новость '{deletedNews.Title}' успешна удалена.";
+            } else {
+                TempData["Danger"] = $"При удалении новости произошла ошибка. Повторите операцию позже.";
+            }
+
+            return RedirectToAction(nameof(News));
+        }
+
+        
     }
 }

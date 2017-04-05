@@ -14,7 +14,7 @@ namespace WebCourse.Models.Repositories {
 
         public void SaveNews(News news) {
             if(news.NewsID == 0) {
-                news.PublicationDateTime = DateTime.UtcNow.AddHours(3);
+                news.PublicationDateTime = DateTime.UtcNow;
                 context.News.Add(news);
             } else {
                 News dbNews = context.News.Where(n => n.NewsID == news.NewsID).FirstOrDefault();
@@ -22,6 +22,8 @@ namespace WebCourse.Models.Repositories {
                     dbNews.Content = news.Content;
                     dbNews.Title = news.Title;
                     dbNews.Preview = news.Preview;
+                    dbNews.Published = news.Published;
+                    dbNews.PublicationDateTime = DateTime.UtcNow;
                 }
             }
             context.SaveChanges();
@@ -32,6 +34,7 @@ namespace WebCourse.Models.Repositories {
 
             if(dbNews != null){
                 context.News.Remove(dbNews);
+                context.SaveChanges();
                 return dbNews;
             }
 

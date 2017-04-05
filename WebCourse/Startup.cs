@@ -84,11 +84,6 @@ namespace WebCourse
 
             app.UseMvc(routes =>{
                 routes.MapRoute(
-                    name: "",
-                    template: "News/Edit/{id}",
-                    defaults: new {controller = "News", action="Edit"}
-                );
-                routes.MapRoute(
                     name:"",
                     template: "Product/Edit/{id}",
                     defaults: new {controller = "Product", action="Edit"}
@@ -97,6 +92,16 @@ namespace WebCourse
                     name:"",
                     template: "Product/View/{id}",
                     defaults: new {controller = "Product", action="Product"}
+                );
+                routes.MapRoute(
+                    name:"",
+                    template: "Admin/News/Edit/{id}",
+                    defaults: new {controller = "Admin", action="EditNews"}
+                );
+                routes.MapRoute(
+                    name:"",
+                    template: "Admin/News/Create",
+                    defaults: new {controller = "Admin", action="CreateNews"}
                 );
                 routes.MapRoute(
                     name: "default",
