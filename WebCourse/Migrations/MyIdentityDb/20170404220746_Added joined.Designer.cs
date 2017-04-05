@@ -8,9 +8,10 @@ using WebCourse.Models;
 namespace WebCourse.Migrations.MyIdentityDb
 {
     [DbContext(typeof(MyIdentityDbContext))]
-    partial class MyIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170404220746_Added joined")]
+    partial class Addedjoined
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)

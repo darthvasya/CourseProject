@@ -8,6 +8,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http.Authentication;
 using WebCourse.Models.ViewModels;
 using WebCourse.Infrastructure;
+using System;
 
 namespace WebCourse.Controllers {
 
@@ -53,7 +54,8 @@ namespace WebCourse.Controllers {
                 User user = new User{
                     Name = model.Name,
                     UserName = model.Email,
-                    Email = model.Email
+                    Email = model.Email,
+                    Joined = DateTime.Now
                 };
 
                 IdentityResult result = await _userManager.CreateAsync(user, model.Pass1);
@@ -131,7 +133,8 @@ namespace WebCourse.Controllers {
                     Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
                     UserName = info.Principal.FindFirst(ClaimTypes.Email).Value,
                     Name = info.Principal.FindFirst(ClaimTypes.Name).Value,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    Joined = DateTime.Now
                 };
 
                 IdentityResult identityResult = await _userManager.CreateAsync(user);

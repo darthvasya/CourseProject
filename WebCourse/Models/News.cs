@@ -20,6 +20,8 @@ namespace WebCourse.Models {
 
         public DateTime PublicationDateTime { get; set; }
 
+        public bool Published { get; set; }
+
 
     }
 }
