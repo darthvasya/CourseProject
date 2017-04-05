@@ -29,6 +29,9 @@
         <input asp-for="Pass2" class="form-control" />
     </div>
     <button type="submit" class="btn btn-sm btn-primary">Регистрация</button>
+    <a class="btn btn-danger fa fa-google" asp-action="ExternalLogin" asp-route-returnUrl="/" asp-route-authType="Google"> Войти через Google</a>
+    <a class="btn btn-primary fa fa-vk" asp-action="ExternalLogin" asp-route-returnUrl="/" asp-route-authType="Vkontakte"> Войти через Вконтакте</a>
+    <a class="btn btn-primary fa fa-facebook" asp-action="ExternalLogin" asp-route-returnUrl="/" asp-route-authType="Facebook"> Войти через Facebook</a>
     <a asp-action="Index" asp-controller="Home" class="btn btn-sm btn-default">Отмена</a>
 </form>
 
