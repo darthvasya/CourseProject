@@ -20,8 +20,8 @@ namespace WebCourse.Controllers.Api
         public object Get(int page){
            return new {
                     News = _newsRepository.News
-                            .OrderBy(n => n.PublicationDateTime)
-                            .Reverse()
+                            .Where(n => n.Published)
+                            .OrderByDescending(n => n.PublicationDateTime)
                             .Skip((page - 1) * _newsCount)
                             .Take(_newsCount),
                     CurrentPage = page,
