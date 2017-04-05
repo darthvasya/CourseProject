@@ -26,5 +26,16 @@ namespace WebCourse.Models.Repositories {
             }
             context.SaveChanges();
         }
+
+        public News DeleteNews(int id){
+            News dbNews = context.News.FirstOrDefault(n => n.NewsID == id);
+
+            if(dbNews != null){
+                context.News.Remove(dbNews);
+                return dbNews;
+            }
+
+            return null;
+        }
     }
 }

@@ -36,5 +36,17 @@ namespace WebCourse.Controllers
             }
             return RedirectToAction("index", "home");
         }
+
+        [HttpPost]
+        public IActionResult Delete(int id, string returnUrl){
+            News deletedNews = _newsRepository.DeleteNews(id);
+            if(deletedNews != null){
+                TempData["Message"] = $"Новость '{deletedNews.Title}' успешна удалена.";
+            } else {
+                TempData["Danger"] = $"При удалении новости произошла ошибка. Повторите операцию позже.";
+            }
+
+            return Redirect(returnUrl);
+        }
     }
 }

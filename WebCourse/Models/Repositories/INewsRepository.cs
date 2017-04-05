@@ -4,5 +4,7 @@ namespace WebCourse.Models.Repositories {
     public interface INewsRepository {
         IEnumerable<News> News { get; }
         void SaveNews(News news);
+
+        News DeleteNews(int id);
     }
 }
