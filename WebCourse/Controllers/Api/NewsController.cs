@@ -30,6 +30,20 @@ namespace WebCourse.Controllers.Api
                 };
         }
 
+        [HttpGet("SearchNews/{pattern}")]
+        public object SearchNews(string pattern){
+            pattern = pattern.ToLower();
+           return new {
+                    News = pattern == "all" ? 
+                            _newsRepository.News
+                            .OrderByDescending(n => n.PublicationDateTime)
+                            :
+                            _newsRepository.News
+                            .Where(n => n.Title.ToLower().Contains(pattern))
+                            .OrderByDescending(n => n.PublicationDateTime)
+                };
+        }
+
         [HttpGet("SingleNews/{id}")]
         public News GetSingleNews(int id){
             return _newsRepository.News.Where(n => n.NewsID == id).SingleOrDefault();
