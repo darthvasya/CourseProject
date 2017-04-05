@@ -1,5 +1,7 @@
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebCourse.Models;
 using WebCourse.Models.Repositories;
 
 namespace WebCourse.Controllers.Api
@@ -12,11 +14,13 @@ namespace WebCourse.Controllers.Api
         private INewsRepository _newsRepository;
         private ICompanyRepository _companyRepository;
         private IInnovativeProductRepository _productRepository;
+        private UserManager<User> _userManager;
 
-        public StatsController(INewsRepository newsRepo, ICompanyRepository companyRepo, IInnovativeProductRepository productRepo) {
+        public StatsController(INewsRepository newsRepo, ICompanyRepository companyRepo, IInnovativeProductRepository productRepo, UserManager<User> usrMgr) {
             _newsRepository = newsRepo;
             _companyRepository = companyRepo;
             _productRepository = productRepo;
+            _userManager = usrMgr;
         }
 
         [HttpGet]
@@ -25,7 +29,8 @@ namespace WebCourse.Controllers.Api
                     stats = new {
                         newsCount = _newsRepository.News.Count(),
                         companiesCount = _companyRepository.Companies.Count(),
-                        productsCount = _productRepository.InnovativeProducts.Count()
+                        productsCount = _productRepository.InnovativeProducts.Count(),
+                        usersCount = _userManager.Users.Count()
                     },
                     lastProducts = _productRepository.InnovativeProducts
                         .OrderByDescending(p => p.InnovativeProductID)
