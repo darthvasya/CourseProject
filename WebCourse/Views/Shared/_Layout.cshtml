@@ -39,7 +39,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.IsInRole("Admin")) {
-                        <li><a asp-action="CreateNews" asp-controller="Admin"><span class="fa fa-key"> Администрирование</span></a></li>
+                        <li><a asp-action="Index" asp-controller="Admin"><span class="fa fa-key"> Администрирование</span></a></li>
                     }
                     @if (Context.User.Identity.IsAuthenticated) {
                         <li><a asp-action="MyProfile" asp-controller="User"><span class="fa fa-home"> Мой профиль</span></a></li>
