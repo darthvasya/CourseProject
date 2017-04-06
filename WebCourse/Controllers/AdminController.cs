@@ -26,7 +26,7 @@ namespace WebCourse.Controllers
             ViewBag.Title = "Административная панель | Главная";
             ViewBag.Cog = "Главная";
             ViewBag.Manage = "Сводка";
-            return View(_userManager.Users.OrderByDescending(u => u.Joined).Take(10));
+            return View(_userManager.Users.Where(u => u.EmailConfirmed).OrderByDescending(u => u.Joined).Take(10));
         }
 
         public IActionResult News(){

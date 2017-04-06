@@ -24,7 +24,9 @@
     <table class="table table-striped table-hover">
         <tr>
         <th>Имя</th>
+        <th>UserName</th>
         <th>Почта</th>
+        <th>ID</th>
         <th>Время регистрации</th>
         </tr>
 
@@ -32,7 +34,9 @@
 @foreach(var user in Model){
     <tr>
         <td>@user.Name</td>
+        <td>@user.UserName</td>
         <td>@user.Email</td>
+        <td>@user.Id</td>
         <td>@user.Joined</td>
     </tr>
 }
