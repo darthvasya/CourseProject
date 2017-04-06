@@ -7,6 +7,10 @@ namespace WebCourse.Models.ViewModels{
         [Required(ErrorMessage = "Введите свое имя")]
         [Display(Name = "Имя:")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "Введите UserName")]
+        [Display(Name = "UserName:")]
+        public string UserName { get; set; }
         
         [Required(ErrorMessage = "Введите свою электронную почту")]
         [Display(Name = "Email:")]

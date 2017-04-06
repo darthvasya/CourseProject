@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using WebCourse.Models;
 using System.Security.Claims;
@@ -22,13 +21,15 @@ namespace WebCourse.Controllers {
             _signInManager = signInMgr;
         }
 
-        public async Task<ViewResult> ConfirmEmail(string userId, string token) {
+        public async Task<IActionResult> ConfirmEmail(string userId, string token) {
             User user = _userManager.FindByIdAsync(userId).Result;
             IdentityResult result = await _userManager.ConfirmEmailAsync(user, token);
             if (result.Succeeded) {
-                return View(true);
+                TempData["Message"] = "Почта успешно подтверждена";
+                return RedirectToAction("index", "home");
             } else {
-                return View(false);
+                TempData["Danger"] = "Ошибка. Обратитесь в службу поддержки";
+                return RedirectToAction("index", "home");
             }
         }
 
@@ -53,7 +54,7 @@ namespace WebCourse.Controllers {
 
                 User user = new User{
                     Name = model.Name,
-                    UserName = model.Email,
+                    UserName = model.UserName,
                     Email = model.Email,
                     Joined = DateTime.Now
                 };
@@ -85,6 +86,9 @@ namespace WebCourse.Controllers {
         public async Task<IActionResult> Login(LoginModel model){
             if (ModelState.IsValid) {
                 User user = await _userManager.FindByEmailAsync(model.Email);
+                if(user == null){
+                    user = await _userManager.FindByNameAsync(model.Email);
+                }
 
                 if (user != null) {
                     await _signInManager.SignOutAsync();
@@ -121,6 +125,7 @@ namespace WebCourse.Controllers {
             }
             ExternalLoginInfo info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null) {
+                TempData["Danger"] = "Ошибка. Возможно почта которая используется в данной соц. сети уже зарегистрирована у нас.";
                 return RedirectToAction(nameof(Login));
             }
 
@@ -129,13 +134,16 @@ namespace WebCourse.Controllers {
             if (result.Succeeded) {
                 return Redirect(returnUrl);
             } else {
-                User user = new Models.User {
-                    Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
-                    UserName = info.Principal.FindFirst(ClaimTypes.Email).Value,
-                    Name = info.Principal.FindFirst(ClaimTypes.Name).Value,
-                    EmailConfirmed = true,
-                    Joined = DateTime.Now
-                };
+                User user = new User();
+                user.Email = info.Principal.FindFirst(ClaimTypes.Email).Value;
+                user.UserName = info.Principal.FindFirst(ClaimTypes.NameIdentifier).Value;
+                if(info.LoginProvider == "Vkontakte"){
+                    user.Name = info.Principal.FindFirst(ClaimTypes.GivenName).Value + " " + info.Principal.FindFirst(ClaimTypes.Surname).Value;
+                } else {
+                    user.Name = info.Principal.FindFirst(ClaimTypes.Name).Value;
+                }
+                user.EmailConfirmed = true;
+                user.Joined = DateTime.Now;
 
                 IdentityResult identityResult = await _userManager.CreateAsync(user);
                 if (identityResult.Succeeded) {
@@ -145,6 +153,7 @@ namespace WebCourse.Controllers {
                         return Redirect(returnUrl);
                     }
                 }
+                TempData["Danger"] = "Ошибка. Возможно почта которая используется в данной соц. сети уже зарегистрирована у нас.";
                 return RedirectToAction(nameof(Login));
             }
         }

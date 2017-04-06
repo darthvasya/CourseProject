@@ -121,6 +121,7 @@ namespace WebCourse.Models
             RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
             string name = configuration["AdminUser:Name"];
+            string username = configuration["AdminUser:UserName"];
             string email = configuration["AdminUser:Email"];
             string pass = configuration["AdminUser:Password"];
             string role = configuration["AdminUser:Role"];
@@ -132,7 +133,7 @@ namespace WebCourse.Models
 
                 User user = new User {
                     Email = email,
-                    UserName = email,
+                    UserName = username,
                     Name = name,
                     EmailConfirmed = true
                 };

@@ -65,14 +65,14 @@ namespace WebCourse
                 ClientId = configuration["VAppId"],
                 ClientSecret = configuration["VSecureKey"],
                 Scope = { "email" },
-                Fields = { "first_name", "last_name", "email" }
+                Fields = { "name", "email" }
             });
 
             app.UseFacebookAuthentication(new FacebookOptions {
                 AppId = configuration["FAppId"],
                 AppSecret = configuration["FAppSecret"],
-                Scope = { "email" },
-                Fields = { "name", "email" },
+                Scope = { "email", "public_profile" },
+                Fields = { "name", "email",  "id"},
                 SaveTokens = true,
             });
 
