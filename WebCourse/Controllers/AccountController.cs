@@ -92,8 +92,12 @@ namespace WebCourse.Controllers {
 
                 if (user != null) {
                     await _signInManager.SignOutAsync();
-                    if ((await _signInManager.PasswordSignInAsync(user, model.Password, false, false)).Succeeded) {
+                    Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                    if (result.Succeeded) {
                         return RedirectToAction("Index", "Home");
+                    } else if (result.IsLockedOut) {
+                        TempData["Danger"] = $"Ваш аккаунт заблокирован до: {user.LockoutEnd.ToString()}";
+                        return RedirectToAction(nameof(Login));
                     }
                 }
             }
