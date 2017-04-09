@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using WebCourse.Models;
 using WebCourse.Models.Repositories;
 using System.Linq;
+using System.Threading.Tasks;
+using System;
 
 namespace WebCourse.Controllers
 {
@@ -34,6 +36,45 @@ namespace WebCourse.Controllers
             ViewBag.Cog = "Новости";
             ViewBag.Manage = "Управление";
             return View();
+        }
+
+        public ViewResult Users(){
+            ViewBag.Title = "Административная панель | Пользователи";
+            ViewBag.Cog = "Пользователи";
+            ViewBag.Manage = "Управление";
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string id){
+            User user = await _userManager.FindByIdAsync(id);
+            if(user != null){
+                await _userManager.DeleteAsync(user);
+                TempData["Message"] = $"Пользователь {user.UserName} успешно удален из базы данных";
+                return RedirectToAction(nameof(Users));
+            }
+            TempData["Danger"] = "При удалении пользователся произошла ошибка.";
+            return RedirectToAction(nameof(Users));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BlockUser(string id, int hours){
+            User user = await _userManager.FindByIdAsync(id);
+            if(user != null){
+                string successMessage = $"Пользователь {user.UserName} заблокирован на {hours} часов.";
+                DateTimeOffset? offset = DateTime.UtcNow.AddHours(hours);
+                if(hours == 0){
+                    offset = null;
+                    successMessage = $"Пользователь {user.UserName} разблокирован";
+                }
+                IdentityResult result = await _userManager.SetLockoutEndDateAsync(user, offset);
+                if(result.Succeeded){
+                    TempData["Message"] = successMessage;
+                } else {
+                    TempData["Danger"] = "При блокировке пользователя произошла ошибка";
+                }
+            }
+            return RedirectToAction(nameof(Users));
         }
 
         public IActionResult CreateNews() {
@@ -72,7 +113,5 @@ namespace WebCourse.Controllers
 
             return RedirectToAction(nameof(News));
         }
-
-        
     }
 }
