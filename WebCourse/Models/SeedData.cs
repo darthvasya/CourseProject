@@ -135,7 +135,8 @@ namespace WebCourse.Models
                     Email = email,
                     UserName = username,
                     Name = name,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    LockoutEnabled = false
                 };
 
                 IdentityResult result = await userManager.CreateAsync(user, pass);
