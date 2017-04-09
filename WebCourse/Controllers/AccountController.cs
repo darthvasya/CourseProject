@@ -139,7 +139,7 @@ namespace WebCourse.Controllers {
                 return Redirect(returnUrl);
             } else if(result.IsLockedOut){
                 User user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
-                TempData["Danger"] = $"Ваш аккаунт заблокирован до: {user.LockoutEnd.Value.ToLocalTime().ToString()}";
+                TempData["Danger"] = $"Ваш аккаунт заблокирован до: {user.LockoutEnd.Value.UtcDateTime.AddHours(3).ToString()}";
                 return RedirectToAction(nameof(Login));
             } else {
                 User user = new User();

@@ -17,13 +17,14 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
 
     <link rel="stylesheet" href="~/css/style.css">
     @if (IsSectionDefined("Scripts")) {
         RenderSection("Scripts");
     }
-    <script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
+    <script src="~/js/adminStats.js"></script>
+
   </head>
   <body>
 
@@ -84,11 +85,11 @@
               <a asp-action="index" class="list-group-item @(ViewBag.Title.Contains("Главная") ? "active main-color-bg" : "")">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Главная
               </a>
-              <a asp-action="Users" class="list-group-item @(ViewBag.Title.Contains("Пользователи") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Пользователи</a>
-              <a asp-action="News" class="list-group-item @(ViewBag.Title.Contains("Новости") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Новости</a>
-              <a href="posts.html" class="list-group-item @(ViewBag.Title.Contains("Продукты") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Продукты</a>
-              <a href="users.html" class="list-group-item @(ViewBag.Title.Contains("Предприятия") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Предприятия</a>
-              <a href="users.html" class="list-group-item @(ViewBag.Title.Contains("Запросы") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span> Запросы</a>
+              <a asp-action="Users" class="list-group-item @(ViewBag.Title.Contains("Пользователи") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Пользователи<span class="badge" id="badgeUsers"></span></a>
+              <a asp-action="News" class="list-group-item @(ViewBag.Title.Contains("Новости") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Новости<span class="badge" id="badgeNews"></span></a>
+              <a href="posts.html" class="list-group-item @(ViewBag.Title.Contains("Продукты") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Продукты<span class="badge" id="badgeProducts"></span></a>
+              <a href="users.html" class="list-group-item @(ViewBag.Title.Contains("Предприятия") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Предприятия<span class="badge" id="badgeCompanies"></span></a>
+              <a href="users.html" class="list-group-item @(ViewBag.Title.Contains("Запросы") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span> Запросы<span class="badge" id="badgeZapr"></span></a>
             </div>
           </div>
           <div class="col-md-9">
