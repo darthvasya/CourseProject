@@ -8,7 +8,7 @@ namespace WebCourse.Controllers.Api
     [Route("api/[controller]")]
     public class NewsController : Controller {
 
-        private const int _newsCount = 2;
+        private const int _newsCount = 10;
 
         private INewsRepository _newsRepository;
 
