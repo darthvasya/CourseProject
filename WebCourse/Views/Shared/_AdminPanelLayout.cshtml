@@ -44,7 +44,7 @@
             <li class="@(ViewBag.Title.Contains("Главная") ? "active" : "")"><a asp-action="Index">Главная</a></li>
             <li class="@(ViewBag.Title.Contains("Пользователи") ? "active" : "")"><a asp-action="Users">Пользователи</a></li>
             <li class="@(ViewBag.Title.Contains("Новости") ? "active" : "")"><a asp-action="News">Новости</a></li>
-            <li class="@(ViewBag.Title.Contains("Продукты") ? "active" : "")"><a href="users.html">Продукты</a></li>
+            <li class="@(ViewBag.Title.Contains("Продукты") ? "active" : "")"><a asp-action="Products">Продукты</a></li>
             <li class="@(ViewBag.Title.Contains("Предприятия") ? "active" : "")"><a href="users.html">Предприятия</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -87,7 +87,7 @@
               </a>
               <a asp-action="Users" class="list-group-item @(ViewBag.Title.Contains("Пользователи") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Пользователи<span class="badge" id="badgeUsers"></span></a>
               <a asp-action="News" class="list-group-item @(ViewBag.Title.Contains("Новости") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Новости<span class="badge" id="badgeNews"></span></a>
-              <a href="posts.html" class="list-group-item @(ViewBag.Title.Contains("Продукты") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Продукты<span class="badge" id="badgeProducts"></span></a>
+              <a asp-action="Products" class="list-group-item @(ViewBag.Title.Contains("Продукты") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Продукты<span class="badge" id="badgeProducts"></span></a>
               <a href="users.html" class="list-group-item @(ViewBag.Title.Contains("Предприятия") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Предприятия<span class="badge" id="badgeCompanies"></span></a>
               <a href="users.html" class="list-group-item @(ViewBag.Title.Contains("Запросы") ? "active main-color-bg" : "")"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span> Запросы<span class="badge" id="badgeZapr"></span></a>
             </div>

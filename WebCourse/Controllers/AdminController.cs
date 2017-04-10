@@ -113,5 +113,23 @@ namespace WebCourse.Controllers
 
             return RedirectToAction(nameof(News));
         }
+
+        public IActionResult Products(){
+            ViewBag.Title = "Административная панель | Продукты";
+            ViewBag.Cog = "Продукты";
+            ViewBag.Manage = "Управление";
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult DeleteProduct(int id){
+            InnovativeProduct product = _productRepository.DeleteProduct(id);
+            if(product != null){
+                TempData["Message"] = $"Продукт '{product.productName}' успешно удален";
+            } else {
+                TempData["Danger"] = "При удалении продукта произошла ошибка.";
+            }
+            return RedirectToAction(nameof(Products));
+        }
     }
 }

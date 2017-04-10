@@ -85,8 +85,18 @@ namespace WebCourse
             app.UseMvc(routes =>{
                 routes.MapRoute(
                     name:"",
+                    template: "Admin/News/Create",
+                    defaults: new {controller = "Admin", action="CreateNews"}
+                );
+                routes.MapRoute(
+                    name:"",
                     template: "Product/Edit/{id}",
                     defaults: new {controller = "Product", action="Edit"}
+                );
+                routes.MapRoute(
+                    name:"",
+                    template: "Company/Edit/{companyId}",
+                    defaults: new {controller = "Company", action="Edit"}
                 );
                 routes.MapRoute(
                     name:"",
@@ -100,8 +110,33 @@ namespace WebCourse
                 );
                 routes.MapRoute(
                     name:"",
-                    template: "Admin/News/Create",
-                    defaults: new {controller = "Admin", action="CreateNews"}
+                    template: "Admin/DeleteProduct",
+                    defaults: new {controller = "Admin", action = "DeleteProduct"}
+                );
+                routes.MapRoute(
+                    name:"",
+                    template: "Company/{companyId}",
+                    defaults: new {controller = "Company", action="Index"}
+                );
+                routes.MapRoute(
+                    name:"",
+                    template: "Product/Create",
+                    defaults: new {controller = "Product", action = "Create"}
+                );
+                routes.MapRoute(
+                    name:"",
+                    template: "Product/List",
+                    defaults: new {controller = "Product", action="List"}
+                );
+                routes.MapRoute(
+                    name:"",
+                    template: "Product/Edit",
+                    defaults: new {controller = "Product", action = "Edit"}
+                );
+                routes.MapRoute(
+                    name:"",
+                    template: "Product/{id}",
+                    defaults: new {controller = "Product", action="Product"}
                 );
                 routes.MapRoute(
                     name: "default",
