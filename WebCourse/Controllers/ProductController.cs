@@ -18,6 +18,7 @@ namespace WebCourse.Controllers
             _productsRepository = repo;
             _userManager = usrMgr;
             _certificateRepository = certificatRepo;
+
         }
 
         public IActionResult Index() {
@@ -39,11 +40,14 @@ namespace WebCourse.Controllers
             return View(product);
         }
 
-        public async Task<ViewResult> Product(int id){
+        public async Task<IActionResult> Product(int id){
             User user = null;
             InnovativeProduct product = _productsRepository.InnovativeProducts.Where(p => p.InnovativeProductID == id).SingleOrDefault();
             if (product != null) {
                 user = await _userManager.FindByIdAsync(product.CreatorID);
+                ViewBag.Title = $"Инновационный продукт: {product.productName}";
+            } else {
+                return new NotFoundResult();
             }
             product.Certificates = _certificateRepository.Certificates.Where(c => c.InnovativeProductID == id).ToList();
 
@@ -62,6 +66,11 @@ namespace WebCourse.Controllers
                 return View(product);
             }
             return RedirectToAction("Product", new {id = product.InnovativeProductID});
+        }
+
+        public ViewResult List(){
+            ViewBag.Title = "Инновационные продукты";
+            return View();
         }
     }
 }
