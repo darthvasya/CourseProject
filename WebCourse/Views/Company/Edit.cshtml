@@ -1,0 +1,59 @@
+@model Company
+
+@section Scripts{
+    <script asp-src-include="~/js/JqueryValidation/*.min.js"></script>
+}
+
+<h1>@ViewBag.Title</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="CreatorID" />
+    <input type="hidden" asp-for="CompanyID" />
+    
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <div><span asp-validation-for="Name" class="text-danger"></span></div>
+        <input asp-for="Name" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone"></label>
+        <div><span asp-validation-for="Phone" class="text-danger"></span></div>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <div><span asp-validation-for="Email" class="text-danger"></span></div>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Website"></label>
+        <div><span asp-validation-for="Website" class="text-danger"></span></div>
+        <input asp-for="Website" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="City"></label>
+        <div><span asp-validation-for="City" class="text-danger"></span></div>
+        <input asp-for="City" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Address"></label>
+        <div><span asp-validation-for="Address" class="text-danger"></span></div>
+        <input asp-for="Address" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Branch"></label>
+        <div><span asp-validation-for="Branch" class="text-danger"></span></div>
+        <select asp-for="Branch" class="form-control" asp-items="@new SelectList(Enum.GetNames(typeof(Branch)))">
+            <option disabled selected value="">Выберите отрасль предприятия</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="PropertyType"></label>
+        <div><span asp-validation-for="PropertyType" class="text-danger"></span></div>
+        <select asp-for="PropertyType" class="form-control" asp-items="@new SelectList(Enum.GetNames(typeof(PropertyType)))">
+            <option disabled selected value="">Выберите тип собственности предприятия</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a asp-action="index" asp-controller="home" class="btn btn-default">Отмена</a>
+</form>

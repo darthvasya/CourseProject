@@ -33,7 +33,7 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="@(ViewBag.Title == "Главная" ? "active" : "")"><a asp-action="Index" asp-controller="Home">Главная</a></li>
-                    <li class="@(ViewBag.Title == "Инновационные продукты" ? "active" : "")"><a asp-action="List" asp-controller="InnovativeProduct" asp-route-page="1">Инновационные продукты</a></li>
+                    <li class="@(ViewBag.Title == "Инновационные продукты" ? "active" : "")"><a asp-action="List" asp-controller="Product">Инновационные продукты</a></li>
                     <li class="@(ViewBag.Title == "Предприятия" ? "active" : "")"><a asp-action="List" asp-controller="Company" asp-route-page="1">Предприятия</a></li>
                     <li><a href="#">Контакты</a></li>
                 </ul>
